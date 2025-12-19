@@ -10,9 +10,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id');
-            
+
             // Relasi Shift (Set Null jika shift dihapus agar user tidak ikut terhapus)
-            $table->foreignId('shift_id')->nullable()->constrained('shifts', 'shift_id')->onDelete('set null');
+            $table->foreignId('shift_id')
+                ->nullable()
+                ->constrained('shifts', 'shift_id')
+                ->nullOnDelete();
 
             $table->string('name');
             $table->string('email')->unique();
@@ -20,16 +23,18 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('position')->nullable();
-            
+
             $table->enum('role', ['admin', 'leader', 'employee'])->default('employee');
             $table->enum('status', ['pending', 'active', 'rejected', 'banned'])->default('pending');
-            
+
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
     }
+
+
 
     public function down(): void
     {
