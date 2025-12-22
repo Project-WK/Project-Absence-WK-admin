@@ -16,9 +16,15 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('address')->nullable();
             
-            // Koordinat Lokasi Proyek (Opsional/Referensi)
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
+            // --- BAGIAN YANG KURANG (TAMBAHKAN INI) ---
+            // Kita harus membuat kolomnya dulu agar bisa diberi Foreign Key
+            $table->unsignedBigInteger('location_id')->nullable(); 
+
+            // --- BARU DEFINISI FOREIGN KEY ---
+            $table->foreign('location_id')
+                ->references('location_id') 
+                ->on('locations')
+                ->onDelete('set null');
             
             // Keuangan
             $table->decimal('project_value', 15, 2)->default(0);

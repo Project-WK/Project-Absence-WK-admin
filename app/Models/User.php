@@ -30,4 +30,12 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     public function shift() { return $this->belongsTo(Shifts::class, 'shift_id'); }
+
+
+    public function managedLocations()
+    {
+        // User (Leader) bisa memegang banyak lokasi (atau satu)
+        // Parameter: (Model Tujuan, Foreign Key di tujuan, Local Key di sini)
+        return $this->hasMany(Locations::class, 'leader_id', 'user_id');
+    }
 }
