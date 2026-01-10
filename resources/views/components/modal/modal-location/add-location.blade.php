@@ -6,7 +6,7 @@
                 <button type="button" class="text-slate-400 bg-transparent hover:bg-slate-100 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="add-location-modal"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
-            <form action="{{ route('locations.store') }}" method="POST">
+            <form action="{{ route('admin.locations.store') }}" method="POST">
                 @csrf
                 <div class="p-6 space-y-4 overflow-y-auto max-h-[70vh]">
                     <div class="grid grid-cols-2 gap-4">
@@ -19,7 +19,7 @@
                             <select name="leader_id" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
                                 <option value="">-- Pilih Leader --</option>
                                 @foreach($leaders as $leader)
-                                    <option value="{{ $leader->id }}">{{ $leader->name }}</option>
+                                    <option value="{{ $leader->user_id }}">{{ $leader->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -42,8 +42,7 @@
                         </div>
                         <div class="col-span-2">
                             <label class="block mb-1.5 text-sm font-medium text-slate-700">Pilih Titik di Peta</label>
-                            {{-- TAMBAHKAN style="height: 400px;" --}}
-                            <div id="map-add" style="height: 400px; width: 100%;" class="rounded-xl border border-slate-300 overflow-hidden"></div>
+                            <div id="map-add" style="height: 350px; width: 100%;" class="rounded-xl border border-slate-300 overflow-hidden relative z-0"></div>
                         </div>
                     </div>
 

@@ -53,22 +53,19 @@
                     <h4 class="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2 mb-3">Lokasi & Alamat</h4>
                     <div class="space-y-3">
                         <div>
-                            <p class="text-xs text-slate-500 mb-1">Nama Lokasi</p>
+                            <p class="text-xs text-slate-500 mb-1">Nama Lokasi (Master)</p>
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-map-pin text-rose-500"></i>
                                 <span class="text-sm font-bold text-slate-800" id="view-location-name">-</span>
                             </div>
                         </div>
                         <div>
-                            <p class="text-xs text-slate-500 mb-1">Alamat Detail</p>
+                            <p class="text-xs text-slate-500 mb-1">Alamat</p>
                             <p class="text-sm text-slate-700 leading-relaxed" id="view-location-address">-</p>
                         </div>
                         
-                        <div id="view-map-container" class="hidden">
-                             <a id="view-maps-link" href="#" target="_blank" class="inline-flex items-center text-xs text-blue-600 hover:underline border border-blue-200 bg-blue-50 px-3 py-1.5 rounded-lg mt-1">
-                                <i class="fa-solid fa-location-arrow mr-2"></i> Buka di Google Maps
-                            </a>
-                        </div>
+                        {{-- Container Peta untuk View Project --}}
+                        <div id="view-map-container" class="h-48 w-full rounded-xl border border-slate-300 relative z-0 overflow-hidden hidden"></div>
                     </div>
                 </div>
 

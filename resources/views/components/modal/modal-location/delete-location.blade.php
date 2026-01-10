@@ -2,7 +2,7 @@
     <div class="relative w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-2xl shadow-xl border border-slate-200">
             <div class="p-6 text-center">
-                <div class="w-14 h-14 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto mb-4">
+                <div class="w-14 h-14 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-4">
                     <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
                 </div>
                 <h3 class="mb-2 text-lg font-bold text-slate-900">Hapus Lokasi Ini?</h3>
@@ -11,7 +11,7 @@
                 <form id="delete-location-form" method="POST" class="inline-flex">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="text-white bg-rose-600 hover:bg-rose-700 font-medium rounded-xl text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    <button type="submit" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded-xl text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Ya, Hapus
                     </button>
                 </form>

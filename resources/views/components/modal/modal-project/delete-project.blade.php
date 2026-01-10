@@ -5,13 +5,13 @@
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             <div class="p-6 text-center">
-                <div class="w-14 h-14 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto mb-4 border border-rose-100">
+                <div class="w-14 h-14 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-4 border border-red-100">
                     <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
                 </div>
                 <h3 class="mb-2 text-lg font-bold text-slate-900">Hapus Project Ini?</h3>
                 <p class="mb-6 text-sm text-slate-500 leading-relaxed">
                     Anda yakin ingin menghapus data project ini? <br>
-                    Tindakan ini mungkin mempengaruhi riwayat absensi yang terkait dan <span class="font-bold text-rose-600">tidak dapat dibatalkan</span>.
+                    Tindakan ini mungkin mempengaruhi riwayat absensi yang terkait dan <span class="font-bold text-red-600">tidak dapat dibatalkan</span>.
                 </p>
                 
                 <form id="delete-project-form" method="POST" class="inline-flex w-full justify-center gap-2">
@@ -22,7 +22,7 @@
                         Batal
                     </button>
 
-                    <button type="submit" class="text-white bg-rose-600 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center shadow-sm shadow-rose-100 w-full transition">
+                    <button type="submit" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center shadow-sm shadow-red-100 w-full transition">
                         Ya, Hapus
                     </button>
                 </form>

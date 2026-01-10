@@ -16,12 +16,10 @@
                 @method('PUT')
                 
                 <div class="grid gap-y-5">
-                    
                     <div>
                         <label for="edit-name" class="block mb-2 text-sm font-semibold text-slate-700">Nama Shift <span class="text-rose-500">*</span></label>
                         <input type="text" name="name" id="edit-name" class="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 shadow-sm" required>
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label for="edit-start_time" class="block mb-2 text-sm font-semibold text-slate-700">Jam Masuk <span class="text-rose-500">*</span></label>
@@ -32,7 +30,6 @@
                             <input type="time" name="end_time" id="edit-end_time" class="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 shadow-sm" required>
                         </div>
                     </div>
-
                 </div>
                 
                 <div class="flex items-center justify-end space-x-3 border-t border-slate-100 pt-5 mt-4">

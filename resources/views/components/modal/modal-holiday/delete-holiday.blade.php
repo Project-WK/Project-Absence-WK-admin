@@ -6,8 +6,8 @@
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="p-6 text-center">
-                <div class="w-16 h-16 rounded-full bg-rose-100 p-3 flex items-center justify-center mx-auto mb-4 ring-8 ring-rose-50">
-                    <i class="fa-regular fa-trash-can text-rose-500 text-3xl"></i>
+                <div class="w-16 h-16 rounded-full bg-red-100 p-3 flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-regular fa-trash-can text-red-500 text-3xl"></i>
                 </div>
                 <h3 class="mb-2 text-lg font-bold text-slate-800">Hapus Hari Libur?</h3>
                 <p class="mb-6 text-sm text-slate-500">Apakah Anda yakin ingin menghapus jadwal ini? Ini akan mempengaruhi perhitungan hari kerja.</p>
@@ -18,7 +18,7 @@
                     <button data-modal-hide="delete-holiday-modal" type="button" class="text-slate-700 bg-white hover:bg-slate-50 focus:ring-4 focus:outline-none focus:ring-slate-200 rounded-lg border border-slate-300 text-sm font-medium px-5 py-2.5 focus:z-10 transition">
                         Batal
                     </button>
-                    <button type="submit" class="text-white bg-rose-600 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center transition shadow-sm shadow-rose-200">
+                    <button type="submit" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center transition shadow-sm shadow-red-200">
                         Ya, Hapus
                     </button>
                 </form>

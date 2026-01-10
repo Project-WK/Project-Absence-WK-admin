@@ -11,7 +11,7 @@
                 </button>
             </div>
 
-            <form action="{{ route('leaves.store') }}" method="POST" enctype="multipart/form-data" class="p-4 md:p-5 space-y-4">
+            <form action="{{ route('admin.leaves.store') }}" method="POST" enctype="multipart/form-data" class="p-4 md:p-5 space-y-4">
                 @csrf
                 
                 <div>

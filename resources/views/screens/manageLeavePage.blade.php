@@ -63,9 +63,9 @@
                 <div id="dropdownSort" class="z-10 hidden bg-white divide-y divide-slate-100 rounded-xl shadow-xl w-44 border border-slate-100">
                     <ul class="py-2 text-sm text-slate-700" aria-labelledby="dropdownSortButton">
                         <li><a href="#" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Semua Status</a></li>
-                         <li><a href="{{ route('projects.index', ['sort' => 'pending']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Menunggu</a></li>
-                        <li><a href="{{ route('projects.index', ['sort' => 'approved']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Disetujui</a></li>
-                        <li><a href="{{ route('projects.index', ['sort' => 'rejected']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Ditolak</a></li>
+                         <li><a href="{{ route('admin.projects.index', ['sort' => 'pending']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Menunggu</a></li>
+                        <li><a href="{{ route('admin.projects.index', ['sort' => 'approved']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Disetujui</a></li>
+                        <li><a href="{{ route('admin.projects.index', ['sort' => 'rejected']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Ditolak</a></li>
                     </ul>
                 </div>
             </div>

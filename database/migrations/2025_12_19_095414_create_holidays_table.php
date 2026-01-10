@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id('holiday_id');
             $table->string('name');
             $table->date('holiday_date');
+            $table->string('type');
+            $table->text('description');
             $table->softDeletes();
             $table->timestamps();
         });

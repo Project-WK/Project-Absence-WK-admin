@@ -11,7 +11,7 @@ class Holidays extends Model
 
     protected $primaryKey = 'holiday_id';
 
-    protected $fillable = ['name', 'holiday_date'];
+    protected $fillable = ['name', 'holiday_date', 'type', 'description'];
 
     protected $casts = [
         'holiday_date' => 'date',

@@ -3,6 +3,7 @@
 @section('title', 'Manajemen Karyawan')
 
 @section('content')
+    {{-- HEADER PAGE --}}
     <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
             <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Data Karyawan</h1>
@@ -16,23 +17,26 @@
         </div>
     </div>
 
+    {{-- CARD WRAPPER --}}
     <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden mb-8">
         
+        {{-- TOOLBAR (BULK ACTION & SORT) --}}
         <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 
-            <!-- Tombol Bulk Delete -->
             <div class="flex items-center gap-2">
-                <button id="bulkDeleteBtn" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-rose-700 rounded-xl hover:bg-rose-700 focus:z-10 focus:ring-2 focus:ring-rose-100 transition shadow-sm w-full sm:w-auto justify-center opacity-50 cursor-not-allowed" disabled>
+                <button id="bulkDeleteBtn" type="button" 
+                    data-modal-target="bulk-delete-modal" 
+                    data-modal-toggle="bulk-delete-modal"
+                    class="hidden inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-rose-700 rounded-xl hover:bg-rose-700 focus:z-10 focus:ring-2 focus:ring-rose-100 transition shadow-sm w-full sm:w-auto justify-center">
                     <i class="fa-regular fa-trash-can mr-2"></i>
-                    Hapus Terpilih
+                    Hapus Terpilih (<span id="count-display">0</span>)
                 </button>
             </div>
 
             <div class="flex items-center justify-end gap-2 w-full sm:w-auto sm:ml-auto">
-                
                 <button id="dropdownSortButton" data-dropdown-toggle="dropdownSort" data-dropdown-placement="bottom-end" class="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-indigo-600 focus:z-10 focus:ring-2 focus:ring-indigo-100 transition shadow-sm w-full sm:w-auto justify-center" type="button">
                     <i class="fa-solid fa-arrow-down-short-wide mr-2 text-slate-400"></i>
-                    Urutkan: Relevansi
+                    Urutkan
                     <svg class="w-2.5 h-2.5 ms-2.5 text-slate-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                     </svg>
@@ -40,34 +44,21 @@
 
                 <div id="dropdownSort" class="z-10 hidden bg-white divide-y divide-slate-100 rounded-xl shadow-xl w-44 border border-slate-100">
                     <ul class="py-2 text-sm text-slate-700" aria-labelledby="dropdownSortButton">
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600 font-medium text-indigo-600 bg-indigo-50/30">Relevansi</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Nama (A-Z)</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Nama (Z-A)</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Terbaru</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Terlama</a>
-                        </li>
+                        <li><a href="{{ route('admin.employees.index', ['sort' => 'name_asc']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Nama (A-Z)</a></li>
+                        <li><a href="{{ route('admin.employees.index', ['sort' => 'name_desc']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Nama (Z-A)</a></li>
+                        <li><a href="{{ route('admin.employees.index', ['sort' => 'newest']) }}" class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600">Terbaru</a></li>
                     </ul>
                 </div>
-
             </div>
         </div>
 
+        {{-- TABLE --}}
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left text-slate-500">
                 <thead class="text-xs text-slate-700 uppercase bg-slate-50/80 border-b border-slate-200">
                     <tr>
-                        <!-- Checkbox Header -->
                         <th scope="col" class="w-6 px-6 py-4">
-                            <input id="selectAllCheckbox" type="checkbox" class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2">
+                            <input id="select-all" type="checkbox" class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2">
                         </th>
                         <th scope="col" class="px-6 py-4 font-semibold">Karyawan</th>
                         <th scope="col" class="px-6 py-4 font-semibold">Kontak & Akun</th>
@@ -78,10 +69,10 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100 bg-white">
                     @forelse($employees as $employee)
-                    <tr class="hover:bg-slate-50/80 transition group/row" id="row-{{ $employee->id }}">
-                        <!-- Checkbox Baris -->
+                    {{-- GUNAKAN user_id SEBAGAI ID --}}
+                    <tr class="hover:bg-slate-50/80 transition group/row" id="row-{{ $employee->user_id }}">
                         <td class="px-6 py-4">
-                            <input type="checkbox" name="selectedEmployees[]" value="{{ $employee->id }}" class="employee-checkbox w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2">
+                            <input type="checkbox" name="ids[]" value="{{ $employee->user_id }}" class="bulk-item w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2">
                         </td>
                         
                         <td class="px-6 py-4 font-medium text-slate-900">
@@ -91,7 +82,7 @@
                                 </div>
                                 <div class="flex flex-col">
                                     <span class="font-bold text-[15px]">{{ $employee->name }}</span>
-                                    <span class="text-xs text-slate-400 font-normal font-mono mt-0.5">ID: EMP-{{ str_pad($employee->id, 4, '0', STR_PAD_LEFT) }}</span>
+                                    <span class="text-xs text-slate-400 font-normal font-mono mt-0.5">ID: EMP-{{ str_pad($employee->user_id, 4, '0', STR_PAD_LEFT) }}</span>
                                 </div>
                             </div>
                         </td>
@@ -112,7 +103,6 @@
                         <td class="px-6 py-4">
                             <div class="flex flex-col items-start gap-1.5">
                                 <span class="font-semibold text-slate-800">{{ $employee->position ?? 'Belum ada jabatan' }}</span>
-                                
                                 @if($employee->role === 'leader')
                                     <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-50 text-purple-700 border border-purple-100">
                                         <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
@@ -149,12 +139,14 @@
 
                         <td class="px-6 py-4 text-center">
                             <div class="flex items-center justify-end gap-1 opacity-80 group-hover/row:opacity-100 transition-opacity">
+                                
+                                {{-- VIEW BUTTON --}}
                                 <button type="button" 
                                     data-modal-target="view-employee-modal" 
                                     data-modal-toggle="view-employee-modal"
                                     class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition btn-view"
                                     data-name="{{ $employee->name }}"
-                                    data-id="EMP-{{ str_pad($employee->id, 4, '0', STR_PAD_LEFT) }}"
+                                    data-id="EMP-{{ str_pad($employee->user_id, 4, '0', STR_PAD_LEFT) }}"
                                     data-email="{{ $employee->email }}"
                                     data-phone="{{ $employee->phone ?? '-' }}"
                                     data-position="{{ $employee->position ?? 'Belum ada' }}"
@@ -163,11 +155,12 @@
                                     <i class="fa-regular fa-eye"></i>
                                 </button>
 
+                                {{-- EDIT BUTTON --}}
                                 <button type="button"
                                     data-modal-target="edit-employee-modal" 
                                     data-modal-toggle="edit-employee-modal"
                                     class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-full transition btn-edit"
-                                    data-id="{{ $employee->id }}"
+                                    data-id="{{ $employee->user_id }}"
                                     data-name="{{ $employee->name }}"
                                     data-email="{{ $employee->email }}"
                                     data-phone="{{ $employee->phone }}"
@@ -177,28 +170,19 @@
                                     <i class="fa-solid fa-pen-to-square text-[13px]"></i>
                                 </button>
 
+                                {{-- DELETE BUTTON --}}
                                 <button type="button"
                                     data-modal-target="delete-employee-modal" 
                                     data-modal-toggle="delete-employee-modal"
                                     class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-full transition btn-delete"
-                                    data-id="{{ $employee->id }}">
+                                    data-id="{{ $employee->user_id }}">
                                     <i class="fa-regular fa-trash-can text-[13px]"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
                     @empty
-                    <tr>
-                        <td colspan="6"> <!-- Kolom menjadi 6 karena ada kolom checkbox -->
-                            <div class="flex flex-col items-center justify-center py-12 px-4 text-center">
-                                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 text-slate-400">
-                                    <i class="fa-solid fa-users-slash text-3xl"></i>
-                                </div>
-                                <h3 class="text-lg font-bold text-slate-700">Belum Ada Data Karyawan</h3>
-                                <p class="text-sm text-slate-500 mt-2 max-w-xs">Silakan tambahkan karyawan baru untuk mulai mengelola absensi dan data mereka.</p>
-                            </div>
-                        </td>
-                    </tr>
+                    <tr><td colspan="6" class="text-center py-8 text-slate-500">Belum ada data karyawan.</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -211,10 +195,12 @@
         @endif
     </div>
 
+    {{-- INCLUDE MODAL (TERPISAH) --}}
     @include('components.modal.modal-employee.add-employee')
     @include('components.modal.modal-employee.edit-employee')
-    @include('components.modal.modal-employee.delete-employee')
     @include('components.modal.modal-employee.view-employee')
+    @include('components.modal.modal-employee.delete-employee')
+    @include('components.modal.modal-employee.bulk-employee')
 
 @endsection
 
@@ -222,31 +208,42 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         
-        // Handle Edit Button Click
+        // --- LOGIC EDIT ---
         const editButtons = document.querySelectorAll('.btn-edit');
-        editButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
-                document.getElementById('edit-form').action = `/admin/employees/${id}`;
-                document.getElementById('edit-name').value = this.getAttribute('data-name');
-                document.getElementById('edit-email').value = this.getAttribute('data-email');
-                document.getElementById('edit-phone').value = this.getAttribute('data-phone');
-                document.getElementById('edit-position').value = this.getAttribute('data-position');
-                document.getElementById('edit-role').value = this.getAttribute('data-role');
-                document.getElementById('edit-shift').value = this.getAttribute('data-shift');
+        const editForm = document.getElementById('edit-form');
+        
+        if (editForm) {
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    // Ganti action URL
+                    editForm.action = `/admin/employees/${id}`;
+                    
+                    // Isi value input
+                    document.getElementById('edit-name').value = this.getAttribute('data-name');
+                    document.getElementById('edit-email').value = this.getAttribute('data-email');
+                    document.getElementById('edit-phone').value = this.getAttribute('data-phone');
+                    document.getElementById('edit-position').value = this.getAttribute('data-position');
+                    document.getElementById('edit-role').value = this.getAttribute('data-role');
+                    document.getElementById('edit-shift').value = this.getAttribute('data-shift');
+                });
             });
-        });
+        }
 
-        // Handle Delete Button Click
+        // --- LOGIC DELETE SINGLE ---
         const deleteButtons = document.querySelectorAll('.btn-delete');
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
-                document.getElementById('delete-form').action = `/admin/employees/${id}`;
+        const deleteForm = document.getElementById('delete-form');
+        
+        if (deleteForm) {
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    deleteForm.action = `/admin/employees/${id}`;
+                });
             });
-        });
+        }
 
-        // Handle View Button Click
+        // --- LOGIC VIEW ---
         const viewButtons = document.querySelectorAll('.btn-view');
         viewButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -255,18 +252,69 @@
                 document.getElementById('view-email').textContent = this.getAttribute('data-email');
                 document.getElementById('view-phone').textContent = this.getAttribute('data-phone');
                 document.getElementById('view-position').textContent = this.getAttribute('data-position');
-                document.getElementById('view-role').textContent = this.getAttribute('data-role');
                 document.getElementById('view-shift').textContent = this.getAttribute('data-shift');
-
-                // Update role badge style
+                
                 const roleSpan = document.getElementById('view-role');
-                if(this.getAttribute('data-role') === 'Leader') {
+                const role = this.getAttribute('data-role');
+                roleSpan.textContent = role;
+                
+                if(role === 'Leader') {
                     roleSpan.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700 border border-purple-200";
                 } else {
                     roleSpan.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200";
                 }
             });
         });
+
+        // --- LOGIC BULK DELETE ---
+        const selectAll = document.getElementById('select-all');
+        const checkboxes = document.querySelectorAll('.bulk-item');
+        const bulkBtn = document.getElementById('bulkDeleteBtn');
+        const countDisplay = document.getElementById('count-display');
+        const bulkInputsContainer = document.getElementById('bulk-delete-inputs');
+        const bulkCountSpanModal = document.getElementById('bulk-count');
+
+        function updateBulkState() {
+            const checkedBoxes = document.querySelectorAll('.bulk-item:checked');
+            const count = checkedBoxes.length;
+            
+            if(count > 0) {
+                bulkBtn.classList.remove('hidden');
+                countDisplay.textContent = count;
+            } else {
+                bulkBtn.classList.add('hidden');
+            }
+        }
+
+        if(selectAll) {
+            selectAll.addEventListener('change', function() {
+                checkboxes.forEach(cb => cb.checked = this.checked);
+                updateBulkState();
+            });
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateBulkState);
+        });
+
+        if(bulkBtn) {
+            bulkBtn.addEventListener('click', function() {
+                const checkedBoxes = document.querySelectorAll('.bulk-item:checked');
+                const ids = Array.from(checkedBoxes).map(cb => cb.value);
+                
+                if(bulkCountSpanModal) bulkCountSpanModal.textContent = ids.length;
+                if(bulkInputsContainer) {
+                    bulkInputsContainer.innerHTML = '';
+                    ids.forEach(id => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'ids[]';
+                        input.value = id;
+                        bulkInputsContainer.appendChild(input);
+                    });
+                }
+            });
+        }
     });
 </script>
 @endpush

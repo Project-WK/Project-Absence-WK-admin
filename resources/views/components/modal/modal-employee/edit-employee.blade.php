@@ -55,7 +55,7 @@
                         <select name="shift_id" id="edit-shift" class="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 shadow-sm">
                             <option value="">Belum Ada Shift</option>
                             @foreach($shifts as $shift)
-                                <option value="{{ $shift->id }}">{{ $shift->name }} ({{ $shift->start_time }} - {{ $shift->end_time }})</option>
+                                <option value="{{ $shift->shift_id }}">{{ $shift->name }} ({{ $shift->start_time }} - {{ $shift->end_time }})</option>
                             @endforeach
                         </select>
                     </div>
@@ -63,7 +63,7 @@
                 
                 <div class="flex items-center justify-end space-x-3 border-t border-slate-100 pt-5">
                     <button type="button" data-modal-toggle="edit-employee-modal" class="text-slate-700 bg-white border border-slate-300 focus:ring-4 focus:outline-none focus:ring-slate-200 font-medium rounded-lg text-sm px-5 py-2.5 hover:bg-slate-50 hover:text-slate-900 focus:z-10 transition">Batal</button>
-                    <button type="submit" class="text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-sm">Simpan Perubahan</button>
+                    <button type="submit" class="text-white bg-yellow-600 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-sm">Simpan Perubahan</button>
                 </div>
             </form>
         </div>

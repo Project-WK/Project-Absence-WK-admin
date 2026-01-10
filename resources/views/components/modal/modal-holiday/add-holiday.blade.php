@@ -11,13 +11,13 @@
                 </button>
             </div>
             
-            <form action="{{ route('holidays.store') }}" method="POST" class="p-4 md:p-6">
+            <form action="{{ route('admin.holidays.store') }}" method="POST" class="p-4 md:p-6">
                 @csrf
                 <div class="grid gap-y-5">
                     
                     <div>
-                        <label for="title" class="block mb-2 text-sm font-semibold text-slate-700">Nama Hari Libur <span class="text-rose-500">*</span></label>
-                        <input type="text" name="title" class="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 shadow-sm" placeholder="Contoh: Tahun Baru Imlek" required>
+                        <label for="name" class="block mb-2 text-sm font-semibold text-slate-700">Nama Hari Libur <span class="text-rose-500">*</span></label>
+                        <input type="text" name="name" class="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 shadow-sm" placeholder="Contoh: Tahun Baru Imlek" required>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-4">

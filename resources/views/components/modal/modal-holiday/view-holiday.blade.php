@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="mt-12 mb-6">
-                    <h4 class="text-xl font-bold text-slate-900" id="view-title">-</h4>
+                    <h4 class="text-xl font-bold text-slate-900" id="view-name">-</h4>
                     <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 mt-2 rounded-full text-xs font-medium" id="view-type">
                         -
                     </span>

@@ -20,7 +20,7 @@
                             <select name="leader_id" id="edit-leader_id" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-amber-500 block w-full p-2.5">
                                 <option value="">-- Pilih Leader --</option>
                                 @foreach($leaders as $leader)
-                                    <option value="{{ $leader->id }}">{{ $leader->name }}</option>
+                                    <option value="{{ $leader->user_id }}">{{ $leader->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -42,8 +42,7 @@
                         </div>
                         <div class="col-span-2">
                             <label class="block mb-1.5 text-sm font-medium text-slate-700">Update Titik di Peta</label>
-                            {{-- TAMBAHKAN style="height: 400px;" --}}
-                            <div id="map-edit" style="height: 400px; width: 100%;" class="rounded-xl border border-slate-300 overflow-hidden"></div>
+                            <div id="map-edit" style="height: 350px; width: 100%;" class="rounded-xl border border-slate-300 overflow-hidden relative z-0"></div>
                         </div>
                     </div>
 
@@ -54,7 +53,7 @@
                 </div>
 
                 <div class="flex items-center p-6 space-x-2 border-t border-slate-100 rounded-b bg-slate-50">
-                    <button type="submit" class="text-white bg-amber-500 hover:bg-amber-600 font-medium rounded-xl text-sm px-5 py-2.5 text-center shadow-sm">Update Lokasi</button>
+                    <button type="submit" class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-xl text-sm px-5 py-2.5 text-center shadow-sm">Update Lokasi</button>
                     <button data-modal-hide="edit-location-modal" type="button" class="text-slate-500 bg-white hover:bg-slate-100 rounded-xl border border-slate-200 text-sm font-medium px-5 py-2.5">Batal</button>
                 </div>
             </form>

@@ -11,7 +11,7 @@
                 </button>
             </div>
             
-            <form action="{{ route('projects.store') }}" method="POST">
+            <form action="{{ route('admin.projects.store') }}" method="POST">
                 @csrf
                 <div class="p-6 overflow-y-auto max-h-[70vh]">
                     
@@ -65,7 +65,7 @@
                                 <option value="" selected disabled>-- Pilih Lokasi Master --</option>
                                 @foreach($locations as $location)
                                     <option value="{{ $location->location_id }}">
-                                        {{ $location->name }} ({{ Str::limit($location->address, 30) }})
+                                        {{ $location->name }}
                                     </option>
                                 @endforeach
                             </select>

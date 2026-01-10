@@ -11,7 +11,7 @@
                 </button>
             </div>
             
-            <form action="{{ route('employees.store') }}" method="POST" class="p-4 md:p-6">
+            <form action="{{ route('admin.employees.store') }}" method="POST" class="p-4 md:p-6">
                 @csrf
                 <div class="grid gap-x-6 gap-y-5 mb-6 grid-cols-2">
                     
@@ -54,7 +54,7 @@
                         <select name="shift_id" class="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 shadow-sm">
                             <option value="">Belum Ada Shift</option>
                             @foreach($shifts as $shift)
-                                <option value="{{ $shift->id }}">{{ $shift->name }} ({{ $shift->start_time }} - {{ $shift->end_time }})</option>
+                                <option value="{{ $shift->shift_id }}">{{ $shift->name }} ({{ $shift->start_time }} - {{ $shift->end_time }})</option>
                             @endforeach
                         </select>
                     </div>
